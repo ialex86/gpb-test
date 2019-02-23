@@ -44,8 +44,7 @@ public class App {
         final int count = Integer.valueOf(args[1]);
         final String[] files = Arrays.copyOfRange(args, 2, args.length);
 
-        DataGenerator dataGenerator;
-        dataGenerator = initDataGenerator(salePointsPath);
+        DataGenerator dataGenerator = initDataGenerator(salePointsPath);
 
         process(count, files, dataGenerator);
 
