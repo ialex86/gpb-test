@@ -24,6 +24,7 @@ public class MessageWriter implements AutoCloseable {
 
 
     public MessageWriter(String outFilePath) {
+        executor = Executors.newFixedThreadPool(1);
         try {
             writeBuffer = Files.newBufferedWriter(Paths.get(outFilePath),
                     StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
@@ -34,7 +35,6 @@ public class MessageWriter implements AutoCloseable {
     }
 
     public void process(BlockingQueue<String> msgsQ) {
-        executor = Executors.newFixedThreadPool(1);
         executor.execute(() -> Stream.generate(() -> {
                     try {
                         return msgsQ.take();

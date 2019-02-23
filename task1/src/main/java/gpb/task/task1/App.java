@@ -68,7 +68,7 @@ public class App {
                     }
                 });
 
-        while (msgsQ.isEmpty()) {
+        while (!msgsQ.isEmpty()) {
             Thread.sleep(100);
         }
 
