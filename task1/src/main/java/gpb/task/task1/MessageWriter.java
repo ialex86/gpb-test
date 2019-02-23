@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Stream;
@@ -33,7 +33,7 @@ public class MessageWriter implements AutoCloseable {
         }
     }
 
-    public void process(BlockingDeque<String> msgsQ) {
+    public void process(BlockingQueue<String> msgsQ) {
         executor = Executors.newFixedThreadPool(1);
         executor.execute(() -> Stream.generate(() -> {
                     try {

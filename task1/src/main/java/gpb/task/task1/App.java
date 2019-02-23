@@ -8,8 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.BlockingDeque;
-import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -52,7 +52,7 @@ public class App {
     }
 
     private static void process(int count, String[] files, DataGenerator dataGenerator) throws Exception {
-        final BlockingDeque<String> msgsQ = new LinkedBlockingDeque<>(CAPACITY);
+        final BlockingQueue<String> msgsQ = new LinkedBlockingQueue<>(CAPACITY);
 
         List<MessageWriter> writers = Arrays.stream(files).map(MessageWriter::new).collect(Collectors.toList());
         writers.forEach(messageWriter -> messageWriter.process(msgsQ));
@@ -68,7 +68,7 @@ public class App {
                     }
                 });
 
-        while (msgsQ.size() > 0) {
+        while (msgsQ.isEmpty()) {
             Thread.sleep(100);
         }
 
